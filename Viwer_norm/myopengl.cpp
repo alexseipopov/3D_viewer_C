@@ -22,6 +22,71 @@ void Myopengl::resizeGL(int w, int h)
 void Myopengl::paintGL()
 {
 
+    exit_st res = s21_parse("/Users/cherylls/Desktop/3D_viever/3D_viewer_C/FinalBaseMesh.obj");
+    glLineWidth(1.5);
+    glPointSize(3);
+    set_scale(&res,0.05);
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+    for (int k = 0; k < res.amount_struct_pol;k++){
+        double  arrayx [21] = {0};
+        for (int i = 0 ; i < res.p[k].amount_pol;i++){
+        for(int m = 0; m < 3; m ++){
+             if (m%3 == 0){
+            arrayx[(i*3)+m] =    res.v[res.p[k].poligon[i]].x       ;
+             } else if (m%3 == 1 ){
+                   arrayx[(i*3)+m] =   res.v[res.p[k].poligon[i]].y;
+             } else {
+                  arrayx[(i*3)+m] =   res.v[res.p[k].poligon[i]].z;
+             }
+        }
+        }
+
+        glVertexPointer(3, GL_DOUBLE, 0, arrayx);
+        glDrawArrays(GL_LINE_STRIP,0,res.p[k].amount_pol);
+    }
+//    double ver []= {0,0,0, 0,0.5,0.0, 0.5,0.5,0,  0.3,0.3,0.5,   0,0,0, 0,0.5,0.0 };
+//    glLineWidth(1.5);
+//    glPointSize(3);
+//    glEnableClientState(GL_VERTEX_ARRAY);
+//    glVertexPointer(3, GL_DOUBLE, 0, ver);
+//   int  indices[] = {0,1,1,2,2,0,1,3};
+
+//   // glDrawElements(GL_LINES, 8, GL_UNSIGNED_INT, indices);
+//    glDrawArrays(GL_LINE_LOOP,0,1);
+//    glDrawArrays(GL_LINE_LOOP,1,2);
+//    glDrawArrays(GL_LINE_LOOP,2,3);
+//    glDrawArrays(GL_LINE_LOOP,2,3);
+//    glDrawArrays(GL_LINE_LOOP,3,4);
+//    for (int k = 0 ;k < this->amount_struct_pol;k++){
+
+//    }
+
+
+//    GLfloat vertices[] = {0};          // 8 of vertex coords
+//    GLubyte indices[] = {0,1,2, 2,3,0,   // first half (18 indices)
+//                         0,3,4, 4,5,0,
+//                         0,5,6, 6,1,0,
+
+//                         1,6,7, 7,2,1,   // second half (18 indices)
+//                         7,4,3, 3,2,7,
+//                         4,7,6, 6,5,4};
+//glLineWidth(1.5);
+//glPointSize(1);
+
+//    // activate and specify pointer to vertex array
+//    glEnableClientState(GL_VERTEX_ARRAY);
+//    glVertexPointer(3, GL_DOUBLE, 0, vertices);
+////    glDrawArrays(GL_TRIANGLES,0,3);
+//    // draw first half, range is 6 - 0 + 1 = 7 vertices used
+
+//    glDrawRangeElements(GL_TRIANGLES, 0, 6, 18, GL_UNSIGNED_BYTE, indices);
+
+//    // draw second half, range is 7 - 1 + 1 = 7 vertices used
+//    glDrawRangeElements(GL_TRIANGLES, 1, 7, 18, GL_UNSIGNED_BYTE, indices+18);
+
+////     deactivate vertex arrays after drawing
+//    glDisableClientState(GL_VERTEX_ARRAY);
 }
 void Myopengl::qColorToRGB(const QColor &C, float &r, float &g, float &b) const
 {

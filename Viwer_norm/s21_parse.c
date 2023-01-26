@@ -95,7 +95,7 @@ void parse_vertex(vertex *v, char *ptr, exit_st *st) {
         } else if(st->minmaxX[1]<v->x){
           st->minmaxX[1]= v->x;
         }
-         
+
         while (*ptr == ' ') {
           ptr++;
         }
