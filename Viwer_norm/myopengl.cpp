@@ -22,29 +22,49 @@ void Myopengl::resizeGL(int w, int h)
 void Myopengl::paintGL()
 {
 
-    exit_st res = s21_parse("/Users/cherylls/Desktop/3D_viever/3D_viewer_C/FinalBaseMesh.obj");
-    glLineWidth(1.5);
-    glPointSize(3);
-    set_scale(&res,0.05);
+    exit_st res = s21_parse("/Users/fixierad/Projects/3D_viewer_C/Obj/Man.obj");
+    double coordinates[res.amount_struct_ver *3];
+    int j = 0;
+    set_scale(&res, 0.05);
+      for (int i = 1; i < res.amount_struct_ver + 1; i++) {
+        coordinates[j] = res.v[i].x;
+        j++;
+        coordinates[j] = res.v[i].y;
+        j++;
+        coordinates[j] = res.v[i].z;
+        j++;
+      }
 
-    glEnableClientState(GL_VERTEX_ARRAY);
-    for (int k = 0; k < res.amount_struct_pol;k++){
-        double  arrayx [21] = {0};
-        for (int i = 0 ; i < res.p[k].amount_pol;i++){
-        for(int m = 0; m < 3; m ++){
-             if (m%3 == 0){
-            arrayx[(i*3)+m] =    res.v[res.p[k].poligon[i]].x       ;
-             } else if (m%3 == 1 ){
-                   arrayx[(i*3)+m] =   res.v[res.p[k].poligon[i]].y;
-             } else {
-                  arrayx[(i*3)+m] =   res.v[res.p[k].poligon[i]].z;
-             }
-        }
-        }
+      glEnableClientState(GL_VERTEX_ARRAY);
 
-        glVertexPointer(3, GL_DOUBLE, 0, arrayx);
-        glDrawArrays(GL_LINE_STRIP,0,res.p[k].amount_pol);
-    }
+      glVertexPointer(3, GL_DOUBLE, 0, &coordinates);
+      glColor3d(0, 0, 3);
+      glPointSize(3);
+         glLineWidth(1.5);
+      glDrawArrays(GL_POINTS, 0, res.amount_struct_ver);
+      glDisableClientState(GL_VERTEX_ARRAY);
+//
+//    glPointSize(3);
+//    set_scale(&res,0.05);
+
+//    glEnableClientState(GL_VERTEX_ARRAY);
+//    for (int k = 0; k < res.amount_struct_pol;k++){
+//        double  arrayx [21] = {0};
+//        for (int i = 0 ; i < res.p[k].amount_pol;i++){
+//        for(int m = 0; m < 3; m ++){
+//             if (m%3 == 0){
+//            arrayx[(i*3)+m] =    res.v[res.p[k].poligon[i]].x       ;
+//             } else if (m%3 == 1 ){
+//                   arrayx[(i*3)+m] =   res.v[res.p[k].poligon[i]].y;
+//             } else {
+//                  arrayx[(i*3)+m] =   res.v[res.p[k].poligon[i]].z;
+//             }
+//        }
+//        }
+
+//        glVertexPointer(3, GL_DOUBLE, 0, arrayx);
+//        glDrawArrays(GL_LINE_STRIP,0,res.p[k].amount_pol);
+//    }
 //    double ver []= {0,0,0, 0,0.5,0.0, 0.5,0.5,0,  0.3,0.3,0.5,   0,0,0, 0,0.5,0.0 };
 //    glLineWidth(1.5);
 //    glPointSize(3);
