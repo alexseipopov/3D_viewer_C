@@ -8,10 +8,6 @@
 #include <string.h>
 #include <unistd.h>
 
-typedef struct poiligons_struct {
-  int *poligon;
-  int amount_pol;
-} poligons;
 typedef struct exit_struct {
   double minmaxX[2];
   double minmaxY[2];
@@ -19,21 +15,20 @@ typedef struct exit_struct {
   int amount_struct_pol;
   int amount_struct_ver;
   double *vertex;
-  poligons *p;
+  int *poligons;
 } exit_st;
 //parse
-exit_st s21_parse(char *filename);
-int s21_fill_amount(char *filename, exit_st *st);
+int s21_parse(exit_st *st,char *filename);
 int s21_init_struct(exit_st *st);
-int parse_vertex(int i, char *ptr, exit_st *st);
-int memory_for_pol(char *ptr, poligons *p);
-void parse_poligons(char *ptr, poligons *p);
-
+int parse_vertex(int *vertex_counter, char *ptr, exit_st *st, int *capacity_ver);
+int parse_poligons(char *ptr, exit_st *st, int *poligons_counter,
+                   int *capacity_pol);
+void s21_remove_struct(exit_st *st);
 //afine 
-void setting_to_center(exit_st *st);
-void set_scale(exit_st *st, double scale );
+// void setting_to_center(exit_st *st);
+// void set_scale(exit_st *st, double scale );
 // void rotation_x(vertex *v, double angle, exit_st *st);
 // void rotation_y(vertex *v, double angle, exit_st *st);
 // void rotation_z(vertex *v, double angle, exit_st *st);
-void move(exit_st *st, double a, char axis);
+//void move(exit_st *st, double a, char axis);
 #endif  // SRC_S21_3DVIEVER_H_
