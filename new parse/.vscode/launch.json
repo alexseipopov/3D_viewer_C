@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/fixierad/Projects/3D_viewer_C/new parse/a.out",
+      "program": "/Users/fixierad/Projects/3D_viewer_C/new parse/build/Debug/outDebug"
+    }
+  ]
+}
