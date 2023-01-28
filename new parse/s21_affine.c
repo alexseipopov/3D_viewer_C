@@ -34,13 +34,11 @@
 //     st->v[i].z -= centZ;
 //   }
 // }
-// void set_scale(exit_st *st, double scale) {
-//   for (unsigned i = 0; i < st->amount_struct_ver; i += 3) {
-//     st->vertex[i] *= scale;
-//     st->vertex[i + 1] *= scale;
-//     st->vertex[i + 2] *= scale;
-//   }
-// }
+void set_scale(exit_st *st, double scale) {
+  for (unsigned i = 0; i < st->amount_struct_ver; i++) {
+    st->vertex[i] *= scale;
+  }
+}
 // // TODO подумать как будет поступать нужная ось
 // void move(exit_st *st, double a, char axis) {
 //   for (unsigned i = 0; i < st->amount_struct_ver; i++) {
@@ -52,3 +50,13 @@
 //       st->v[i].z += a;
 //   }
 // }
+
+double normalize(exit_st *st){
+    double x = st->minmaxX[1] - st->minmaxX[0];
+    double y = st->minmaxY[1] - st->minmaxY[0];
+    double z = st->minmaxZ[1] - st->minmaxZ[0];
+    double d =  fmax(fmax(x,y),z);
+    double value = 0.5;
+   double scale= (value - (value*(-1)))/d;
+   return scale;
+}

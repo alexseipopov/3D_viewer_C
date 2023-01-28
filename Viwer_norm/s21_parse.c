@@ -1,68 +1,47 @@
 #include "s21_3DViewer.h"
 
-//int main() {
-//  int status = 0;
-//  int amount_ver = 0;
-//  int amount_pol = 0;
-//  exit_st st = {0};
-//  st = s21_parse("test.obj");
-//  for(int i = 0; i< st.amount_struct_ver; i++) {
-//    printf("v %lf %lf %lf\n", st.v[i].x, st.v[i].y, st.v[i].z );
-//  }
-//  return 0;
-//}
+// int main() {
+//   int status = 0;
+//   int amount_ver = 0;
+//   int amount_pol = 0;
+//   exit_st st = {0};
+//   st = s21_parse("test.obj");
+//   for(int i = 0; i< st.amount_struct_ver; i++) {
+//     printf("v %lf %lf %lf\n", st.v[i].x, st.v[i].y, st.v[i].z );
+//   }
+//   return 0;
+// }
 
-exit_st s21_parse(char *filename) {
-  exit_st *st = (exit_st *)calloc(1, sizeof(exit_st));
-  int status = 0;
-  status = s21_fill_amount(filename, st);
-  s21_init_struct(st);
-  //KOSTIIIIIL
-  st->minmaxX[1]=-9999;
-  st->minmaxY[1]=-9999;
-  st->minmaxZ[1]=-9999;
-  st->minmaxX[0]=9999;
-  st->minmaxY[0]=9999;
-  st->minmaxZ[0]=9999;
-  ssize_t read = 0;
-  char *line = NULL;
-  size_t size_line = 0;
-  FILE *file = fopen(filename, "r");
-  char *ptr = line;
-  int vertex_counter = 0;
-  int poligons_counter = 0;
-  while ((read = getline(&line, &size_line, file)) != -1) {
-    ptr = line;
-    if (*ptr == 'v') {
-      parse_vertex(&(st->v[vertex_counter]), ptr,st);
-      vertex_counter++;
-    } else if (*ptr == 'f') {
-      memory_for_pol(ptr, &(st->p[poligons_counter]));
-      ptr = line;
-      parse_poligons(ptr, &(st->p[poligons_counter]));
-      poligons_counter++;
-    }
-  }
-  return *st;
-}
-
-int s21_fill_amount(char *filename, exit_st *st) {
+int s21_parse(exit_st *st, char *filename) {
   int status = 0;
   ssize_t read = 0;
   char *line = NULL;
   size_t size_line = 0;
   FILE *file = fopen(filename, "r");
   if (file != NULL) {
-    while ((read = getline(&line, &size_line, file)) != -1) {
-      if (line[0] == 'v' && line[1] == ' ') {
-        st->amount_struct_ver += 1;
-      }
-      if (line[0] == 'f' && line[1] == ' ') {
-        st->amount_struct_pol += 1;
+    char *ptr = line;
+    int poligons_counter = 0;
+    int vertex_counter = 0;
+    int capacity_ver = 3;
+    int capacity_pol = 3;
+    int k = 0;
+    s21_init_struct(st);
+    if (!status) {
+      while ((read = getline(&line, &size_line, file)) != -1) {
+        ptr = line;
+        if (*ptr == 'v') {
+          parse_vertex(&vertex_counter, ptr, st, &capacity_ver);
+          // st->amount_struct_ver++;
+        } else if (*ptr == 'f') {
+          parse_poligons(ptr, st, &poligons_counter, &capacity_pol);
+          // st->amount_struct_pol++;
+        }
       }
     }
     free(line);
     fclose(file);
+    st->amount_struct_pol = poligons_counter;
+    st->amount_struct_ver = vertex_counter;
   } else {
     status = 1;
   }
@@ -71,88 +50,138 @@ int s21_fill_amount(char *filename, exit_st *st) {
 
 int s21_init_struct(exit_st *st) {
   int status = 0;
-  if ((st->p = (poligons *)calloc(st->amount_struct_pol, sizeof(poligons))) ==
-      NULL) {
+  st->amount_struct_pol = 0;
+  st->amount_struct_ver = 0;
+  // KOSTIIIIIL
+
+  if ((st->poligons = (unsigned *)calloc(3, sizeof(unsigned))) == NULL) {
+    status = 1;
   }
-  if ((st->v = (vertex *)calloc(st->amount_struct_ver, sizeof(vertex))) ==
-      NULL) {
+  if ((st->vertex = (double *)calloc(3, sizeof(double))) == NULL) {
     status = 1;
   }
   return status;
 }
 
-void parse_vertex(vertex *v, char *ptr, exit_st *st) {
+int parse_vertex(int *vertex_counter, char *ptr, exit_st *st,
+                 int *capacity_ver) {
+  int status = 0;
+  int counter_axis = 0;
   ptr++;
   if (*ptr == ' ') {
     while (*ptr != '\0') {
       if (!isdigit(*ptr) && *ptr != '-') {
         ptr++;
       } else {
-        v->x = strtod(ptr, &ptr);
-        if(st->minmaxX[0]>v->x){
-          st->minmaxX[0]= v->x;
-          //Может не совсем правильно работать
-        } else if(st->minmaxX[1]<v->x){
-          st->minmaxX[1]= v->x;
-        }
+        if (*vertex_counter < *capacity_ver) {
+          st->vertex[*vertex_counter] = strtod(ptr, &ptr);
+          if (*vertex_counter == 0) {
+            st->minmaxX[0] = st->vertex[*vertex_counter];
+            st->minmaxX[1] = st->vertex[*vertex_counter];
+          }
+          if (*vertex_counter == 1) {
+            st->minmaxY[0] = st->vertex[*vertex_counter];
+            st->minmaxY[1] = st->vertex[*vertex_counter];
+          }
+          if (*vertex_counter == 2) {
+            st->minmaxZ[0] = st->vertex[*vertex_counter];
+            st->minmaxZ[1] = st->vertex[*vertex_counter];
+          }
+          s21_minmax_cord(st, counter_axis, st->vertex[*vertex_counter]);
 
-        while (*ptr == ' ') {
-          ptr++;
-        }
-        v->y = strtod(ptr, &ptr);
-        if(st->minmaxY[0]>v->x){
-          st->minmaxY[0]= v->x;
-        } else if(st->minmaxY[1]<v->x){
-          st->minmaxY[1]= v->x;
-        }
-        while (*ptr == ' ') {
-          ptr++;
-        }
-        v->z = strtod(ptr, &ptr);
-        if(st->minmaxZ[0]>v->x){
-          st->minmaxZ[0]= v->x;
-        } else if(st->minmaxZ[1]<v->x){
-          st->minmaxZ[1]= v->x;
+          counter_axis++;
+          *vertex_counter += 1;
+          while (*ptr == ' ') {
+            ptr++;
+          }
+        } else {
+          double *tmp;
+          *capacity_ver *= 2;
+          if ((tmp = realloc(st->vertex, *capacity_ver * sizeof(double))) ==
+              NULL) {
+            return 1;
+          } else {
+            st->vertex = tmp;
+          }
         }
       }
     }
   }
-}
-int memory_for_pol(char *ptr, poligons *p) {
-  int status = 0;
-  ptr++;
-  int amount_pol = 0;
-  while (*ptr != '\0') {
-    if (!isdigit(*ptr)) {
-      ptr++;
-    } else {
-      amount_pol++;
-
-      while (*ptr != ' ') {
-        ptr++;
-      }
-    }
-  }
-  if ((p->poligon = (int *)calloc(amount_pol, sizeof(int))) == NULL) {
-    status = 1;
-  } else {
-    p->amount_pol = amount_pol;
-  }
-
   return status;
 }
-void parse_poligons(char *ptr, poligons *p) {
+
+int parse_poligons(char *ptr, exit_st *st, int *poligons_counter,
+                   int *capacity_pol) {
   ptr++;
   int i = 0;
-  while (*ptr != '\0') {
-    if (!isdigit(*ptr)) {
-      ptr++;
-    } else {
-      p->poligon[i] = strtol(ptr, &ptr, 0);
-      i++;
-      while (*ptr != ' ') {
+  int status = 0;
+  int first_poligon = 0;
+  int tmp_pol = 0;
+  if (*ptr == ' ') {
+    while (*ptr != '\0') {
+      if (!isdigit(*ptr)) {
         ptr++;
+      } else {
+        if (*poligons_counter < *capacity_pol - 1) {
+          if (i == 0) {
+            st->poligons[*poligons_counter] = strtol(ptr, &ptr, 0) - 1;
+            first_poligon = st->poligons[*poligons_counter];
+            *poligons_counter += 1;
+            i++;
+          } else {
+            tmp_pol = strtol(ptr, &ptr, 0) - 1;
+            st->poligons[*poligons_counter] = tmp_pol;
+            *poligons_counter += 1;
+            st->poligons[*poligons_counter] = tmp_pol;
+            *poligons_counter += 1;
+          }
+          while (*ptr != ' ') {
+            ptr++;
+          }
+        } else {
+          unsigned *tmp;
+          *capacity_pol *= 2;
+          if ((tmp = realloc(st->poligons, *capacity_pol * sizeof(unsigned))) ==
+              NULL) {
+            return 1;
+          } else {
+            st->poligons = tmp;
+          }
+        }
       }
+    }
+    st->poligons[*poligons_counter] = first_poligon;
+    *poligons_counter += 1;
+  }
+  return status;
+}
+
+void s21_remove_struct(exit_st *st) {
+  free(st->vertex);
+  free(st->poligons);
+}
+
+void s21_minmax_cord(exit_st *st, int counter_axis, double coord) {
+  if (counter_axis == 0) {
+    if (st->minmaxX[0] > coord) {
+      st->minmaxX[0] = coord;
+    }
+    if (st->minmaxX[1] < coord) {
+      st->minmaxX[1] = coord;
+    }
+  } else if (counter_axis == 1) {
+    if (st->minmaxY[0] > coord) {
+      st->minmaxY[0] = coord;
+    }
+    if (st->minmaxY[1] < coord) {
+      st->minmaxY[1] = coord;
+    }
+  } else if (counter_axis == 2) {
+    if (st->minmaxZ[0] > coord) {
+      st->minmaxZ[0] = coord;
+    }
+    if (st->minmaxZ[1] < coord) {
+      st->minmaxZ[1] = coord;
     }
   }
 }
