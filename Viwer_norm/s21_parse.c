@@ -27,14 +27,12 @@ int s21_parse(exit_st *st, char *filename) {
     int k = 0;
     s21_init_struct(st);
     if (!status) {
-      while ((read = getline(&line, &size_line, file)) != -1) {
+      while ((read = getline(&line, &size_line, file)) != -1 && !status) {
         ptr = line;
         if (*ptr == 'v') {
-          parse_vertex(&vertex_counter, ptr, st, &capacity_ver);
-          // st->amount_struct_ver++;
+          status = parse_vertex(&vertex_counter, ptr, st, &capacity_ver);
         } else if (*ptr == 'f') {
-          parse_poligons(ptr, st, &poligons_counter, &capacity_pol);
-          // st->amount_struct_pol++;
+          status = parse_poligons(ptr, st, &poligons_counter, &capacity_pol);
         }
       }
     }
@@ -52,8 +50,6 @@ int s21_init_struct(exit_st *st) {
   int status = 0;
   st->amount_struct_pol = 0;
   st->amount_struct_ver = 0;
-  // KOSTIIIIIL
-
   if ((st->poligons = (unsigned *)calloc(3, sizeof(unsigned))) == NULL) {
     status = 1;
   }
@@ -74,26 +70,32 @@ int parse_vertex(int *vertex_counter, char *ptr, exit_st *st,
         ptr++;
       } else {
         if (*vertex_counter < *capacity_ver) {
-          st->vertex[*vertex_counter] = strtod(ptr, &ptr);
-          if (*vertex_counter == 0) {
-            st->minmaxX[0] = st->vertex[*vertex_counter];
-            st->minmaxX[1] = st->vertex[*vertex_counter];
-          }
-          if (*vertex_counter == 1) {
-            st->minmaxY[0] = st->vertex[*vertex_counter];
-            st->minmaxY[1] = st->vertex[*vertex_counter];
-          }
-          if (*vertex_counter == 2) {
-            st->minmaxZ[0] = st->vertex[*vertex_counter];
-            st->minmaxZ[1] = st->vertex[*vertex_counter];
-          }
-          s21_minmax_cord(st, counter_axis, st->vertex[*vertex_counter]);
-
-          counter_axis++;
-          *vertex_counter += 1;
-          while (*ptr == ' ') {
+        //   if (strtod(ptr, &ptr) == 0.0){
+        //       if(*ptr == '0'|| (*ptr == '-' && *(ptr + 1) == '0') ) {
+        //     st->vertex[*vertex_counter] = 0.0;
+        //     *vertex_counter += 1;
+        //       }
+        //   } else {
+            st->vertex[*vertex_counter] = strtod(ptr, &ptr);
+            if (*vertex_counter == 0) {
+              st->minmaxX[0] = st->vertex[*vertex_counter];
+              st->minmaxX[1] = st->vertex[*vertex_counter];
+            }
+            if (*vertex_counter == 1) {
+              st->minmaxY[0] = st->vertex[*vertex_counter];
+              st->minmaxY[1] = st->vertex[*vertex_counter];
+            }
+            if (*vertex_counter == 2) {
+              st->minmaxZ[0] = st->vertex[*vertex_counter];
+              st->minmaxZ[1] = st->vertex[*vertex_counter];
+            }
+            s21_minmax_cord(st, counter_axis, st->vertex[*vertex_counter]);
+            counter_axis++;
+            *vertex_counter += 1;
+          // }
+          while ( *ptr != '\0' && *ptr == ' ' ) {
             ptr++;
-          }
+         }
         } else {
           double *tmp;
           *capacity_ver *= 2;
@@ -135,7 +137,7 @@ int parse_poligons(char *ptr, exit_st *st, int *poligons_counter,
             st->poligons[*poligons_counter] = tmp_pol;
             *poligons_counter += 1;
           }
-          while (*ptr != ' ') {
+          while (*ptr != '\0' && *ptr != ' ') {
             ptr++;
           }
         } else {

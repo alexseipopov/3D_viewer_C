@@ -1,6 +1,8 @@
 #include "myopengl.h"
 
-Myopengl::Myopengl(QWidget *parent) : QOpenGLWidget{parent} {}
+Myopengl::Myopengl(QWidget *parent) : QOpenGLWidget{parent} {
+    res = (exit_st *)calloc(1, sizeof(exit_st));
+}
 
 void Myopengl::initializeGL() {
   float r, g, b, a = 1.0f;
@@ -9,23 +11,15 @@ void Myopengl::initializeGL() {
   glEnable(GL_DEPTH_TEST);
   // glRotated(90,0,90,0);
   qColorToRGB(Qt::black, r, g, b);
-  //    glClearColor(r, g, b, a);
-  //    glEnable(GL_)
 }
 void Myopengl::resizeGL(int w, int h) {}
 void Myopengl::paintGL() {
-  exit_st *st = (exit_st *)calloc(1, sizeof(exit_st));
-  s21_parse(st, "/Users/fixierad/Projects/3D_viewer_C/Obj/Mickey Mouse_2.obj");
-  setting_to_center(st);
-  double scale = normalize(st);
-  set_scale(st, scale);
+
   glEnableClientState(GL_VERTEX_ARRAY);
-  glVertexPointer(3, GL_DOUBLE, 0, st->vertex);
-  glDrawElements(GL_LINES, st->amount_struct_pol, GL_UNSIGNED_INT,
-                 st->poligons);
+  glVertexPointer(3, GL_DOUBLE, 0, res->vertex);
+  glDrawElements(GL_LINES, res->amount_struct_pol, GL_UNSIGNED_INT,
+                 res->poligons);
   glDisableClientState(GL_VERTEX_ARRAY);
-  s21_remove_struct(st);
-  free(st);
 
   //        double vertices[] = {0,0,0, 0.1,0.1,0.1,0,0,0, 0.2,0.2,0.2,0,0,0,
   //        0.3,0.3,0.13, 0,0,0, 0.1,0.1,0.1,0,0,0, 0.2,0.2,0.2,0,0,0,

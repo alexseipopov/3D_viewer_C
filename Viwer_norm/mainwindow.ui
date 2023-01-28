@@ -6,45 +6,65 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>824</width>
-    <height>603</height>
+    <width>1522</width>
+    <height>735</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="Myopengl" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>12</x>
-      <y>12</y>
-      <width>651</width>
-      <height>525</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="OpenobjFile">
-    <property name="geometry">
-     <rect>
-      <x>710</x>
-      <y>200</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-   </widget>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="Myopengl" name="widget" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>744</width>
+        <height>662</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>662</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QPushButton" name="EditFile">
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="Draw">
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="horizontalSlider">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>824</width>
-     <height>24</height>
+     <width>1522</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
