@@ -16,6 +16,7 @@ void Myopengl::resizeGL(int w, int h) {}
 void Myopengl::paintGL() {
 
   glEnableClientState(GL_VERTEX_ARRAY);
+    set_scale(res,scale);
   glVertexPointer(3, GL_DOUBLE, 0, res->vertex);
   glDrawElements(GL_LINES, res->amount_struct_pol, GL_UNSIGNED_INT,
                  res->poligons);

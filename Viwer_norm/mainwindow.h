@@ -26,6 +26,8 @@ class MainWindow : public QMainWindow {
 
   void on_Draw_clicked();
 
+  void on_scale_slider_sliderMoved(int position);
+
 private:
   Ui::MainWindow *ui;
 };

@@ -5,8 +5,20 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
-//ui->scale_slider->setSliderPosition(50);
-//ui->scale_lineedit->setText("1");
+ui->scale_slider->setSliderPosition(50);
+ui->scale_line_edit->setText("1");
+ui->x_move->setText("0");
+ui->y_move->setText("0");
+ui->z_move->setText("0");
+ui->x_rotate->setText("0");
+ui->y_rotate->setText("0");
+ui->z_rotate->setText("0");
+ui->x_move_slider->setSliderPosition(50);
+ui->y_move_slider->setSliderPosition(50);
+ui->z_move_slider->setSliderPosition(50);   // -50   0.5  0.01
+ui->x_rotate_slider->setSliderPosition(50);
+ui->y_rotate_slider->setSliderPosition(50);
+ui->z_rotate_slider->setSliderPosition(50);
 
 }
 
@@ -19,7 +31,7 @@ void MainWindow::on_OpenobjFile_clicked() {
 
 void MainWindow::on_EditFile_clicked()
 {
-     QString str = QFileDialog::getOpenFileName(this,"Open file","/Users/", "*.obj");
+     QString str = QFileDialog::getOpenFileName(this,"Open file","/Users/cherylls/Desktop/3D_viever/3D_viewer_C/Obj/", "*.obj");
      std::string v_str = str.toStdString();
        const char* strch = v_str.c_str();
        auto s = const_cast<char*>(strch);
@@ -36,5 +48,13 @@ void MainWindow::on_EditFile_clicked()
 void MainWindow::on_Draw_clicked()
 {
       ui->widget->update();
+}
+
+
+void MainWindow::on_scale_slider_sliderMoved(int position)
+{
+    ui->widget->scale = ui->scale_slider->value() * 0.02;
+    ui->widget->update();
+
 }
 

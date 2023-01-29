@@ -17,8 +17,8 @@ class Myopengl : public QOpenGLWidget, public QOpenGLFunctions {
 //          double minmaxY[2];
 //          double minmaxZ[2];
 //          int amount_struct_pol;
-//          int amount_struct_ver;
-  double scale;
+//          int amount_struct_ver;   1  ;  49
+  double scale =1;
   ~Myopengl() {
     if (res) {
        s21_remove_struct(res);
