@@ -5,6 +5,9 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
+//ui->scale_slider->setSliderPosition(50);
+//ui->scale_lineedit->setText("1");
+
 }
 
 MainWindow::~MainWindow() { delete ui; }
