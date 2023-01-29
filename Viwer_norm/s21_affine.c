@@ -12,7 +12,7 @@ void rotation_y(double angle, exit_st *st) {
   for (unsigned i = 0; i < st->amount_struct_ver; i += 3) {
     double temp_x = st->vertex[i];
     double temp_z = st->vertex[i + 2];
-    st->vertex[i + 1] = cos(angle) * temp_x + sin(angle) * temp_z;
+    st->vertex[i] = cos(angle) * temp_x + sin(angle) * temp_z;
     st->vertex[i + 2] = -sin(angle) * temp_x + cos(angle) * temp_z;
   }
 }
@@ -21,7 +21,7 @@ void rotation_z(double angle, exit_st *st) {
     double temp_x = st->vertex[i];
     double temp_y = st->vertex[i + 1];
     st->vertex[i] = cos(angle) * temp_x - sin(angle) * temp_y;
-    st->vertex[i + 2] = -sin(angle) * temp_x + cos(angle) * temp_y;
+    st->vertex[i + 1] = sin(angle) * temp_x + cos(angle) * temp_y;
   }
 }
 void setting_to_center(exit_st *st) {
