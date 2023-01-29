@@ -440,8 +440,8 @@
     <widget class="QFrame" name="frame_4">
      <property name="geometry">
       <rect>
-       <x>9</x>
-       <y>430</y>
+       <x>20</x>
+       <y>490</y>
        <width>711</width>
        <height>121</height>
       </rect>
@@ -493,6 +493,32 @@
        </rect>
       </property>
      </widget>
+    </widget>
+    <widget class="QPushButton" name="scale_but_minus">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>420</y>
+       <width>100</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>SCALE MINUS</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="scale_scale_plus">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>420</y>
+       <width>100</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>SCALE PLUS</string>
+     </property>
     </widget>
    </widget>
   </widget>

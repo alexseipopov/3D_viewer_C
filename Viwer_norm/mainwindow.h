@@ -26,7 +26,29 @@ class MainWindow : public QMainWindow {
 
   void on_Draw_clicked();
 
-  void on_scale_slider_sliderMoved(int position);
+ // void on_scale_slider_sliderMoved(int position);
+
+  void on_scale_slider_sliderReleased();
+
+  void on_scale_but_minus_clicked();
+
+  void on_scale_scale_plus_clicked();
+
+  void on_scale_slider_valueChanged(int value);
+
+  void on_scale_line_edit_returnPressed();
+
+  void on_x_rotate_returnPressed();
+
+  void on_y_rotate_returnPressed();
+
+  void on_z_rotate_returnPressed();
+
+  void on_x_move_returnPressed();
+
+  void on_y_move_returnPressed();
+
+  void on_z_move_returnPressed();
 
 private:
   Ui::MainWindow *ui;

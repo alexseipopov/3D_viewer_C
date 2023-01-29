@@ -40,7 +40,7 @@ void set_scale(exit_st *st, double scale) {
   }
 }
 // TODO подумать как будет поступать нужная ось
-void move(exit_st *st, double a, char axis) {
+void s21_move(exit_st *st, double a, char axis) {
   for (unsigned i = 0; i < st->amount_struct_ver; i += 3) {
     if (axis == 'x')
       st->vertex[i] += a;

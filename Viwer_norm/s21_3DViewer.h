@@ -35,7 +35,7 @@ void set_scale(exit_st *st, double scale);
 void rotation_x(double angle, exit_st *st);
 void rotation_y(double angle, exit_st *st);
 void rotation_z(double angle, exit_st *st);
-void move(exit_st *st, double a, char axis);
+void s21_move(exit_st *st, double a, char axis);
 
 #ifdef __cplusplus
 }
