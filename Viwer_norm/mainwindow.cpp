@@ -31,7 +31,7 @@ void MainWindow::on_OpenobjFile_clicked() {
 
 void MainWindow::on_EditFile_clicked()
 {
-     QString str = QFileDialog::getOpenFileName(this,"Open file","/Users/fixierad/Projects/3D_viewer_C/Obj/", "*.obj");
+     QString str = QFileDialog::getOpenFileName(this,"Open file","/Users/garroshm/Proj/3D_viewer_C/Obj/", "*.obj");
      std::string v_str = str.toStdString();
        const char* strch = v_str.c_str();
        auto s = const_cast<char*>(strch);

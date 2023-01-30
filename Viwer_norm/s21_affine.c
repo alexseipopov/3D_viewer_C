@@ -8,6 +8,7 @@ void rotation_x(double angle, exit_st *st) {
     st->vertex[i + 2] = -sin(angle) * temp_y + cos(angle) * temp_z;
   }
 }
+
 void rotation_y(double angle, exit_st *st) {
   for (unsigned i = 0; i < st->amount_struct_ver; i += 3) {
     double temp_x = st->vertex[i];
@@ -16,6 +17,7 @@ void rotation_y(double angle, exit_st *st) {
     st->vertex[i + 2] = -sin(angle) * temp_x + cos(angle) * temp_z;
   }
 }
+
 void rotation_z(double angle, exit_st *st) {
   for (unsigned i = 0; i < st->amount_struct_ver; i += 3) {
     double temp_x = st->vertex[i];
@@ -24,6 +26,7 @@ void rotation_z(double angle, exit_st *st) {
     st->vertex[i + 1] = sin(angle) * temp_x + cos(angle) * temp_y;
   }
 }
+
 void setting_to_center(exit_st *st) {
   double centX = st->minmaxX[0] + (st->minmaxX[1] - st->minmaxX[0]) / 2;
   double centY = st->minmaxY[0] + (st->minmaxY[1] - st->minmaxY[0]) / 2;
@@ -39,7 +42,7 @@ void set_scale(exit_st *st, double scale) {
     st->vertex[i] *= scale;
   }
 }
-// TODO подумать как будет поступать нужная ось
+
 void s21_move(exit_st *st, double a, char axis) {
   for (unsigned i = 0; i < st->amount_struct_ver; i += 3) {
     if (axis == 'x')

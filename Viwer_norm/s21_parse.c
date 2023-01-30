@@ -1,33 +1,45 @@
 #include "s21_3DViewer.h"
 
-// int main() {
-//   int status = 0;
-//   int amount_ver = 0;
-//   int amount_pol = 0;
-//   exit_st st = {0};
-//   st = s21_parse("test.obj");
-//   for(int i = 0; i< st.amount_struct_ver; i++) {
-//     printf("v %lf %lf %lf\n", st.v[i].x, st.v[i].y, st.v[i].z );
-//   }
-//   return 0;
-// }
+//int main() {
 
+//  exit_st *st = (exit_st *)calloc(1, sizeof(exit_st));
+// s21_parse(st, "test.obj");
+//  // printf("%d", st->amount_struct_ver);
+//  for (unsigned i = 0; i < st->amount_struct_ver; i++) {
+//    printf("v %lf ", st->vertex[i]);
+//    printf("%lf ", st->vertex[i + 1]);
+//    printf("%lf\n", st->vertex[i + 2]);
+//    i += 2;
+//  }
+//  // for (int i = 0; i < st->amount_struct_pol; i++) {
+//  //   printf(" %d", st->poligons[i]);
+//  // }
+//  // printf("%d", st->amount_struct_pol);
+//  // printf("%lf ", st->minmaxY[0]);
+//  // printf("%lf", st->minmaxY[1]);
+//  // double scale = normalize(st);
+//  // set_scale(st, scale);
+//  // printf("%lf ", st->vertex[0]);
+//  // printf("%lf ", st->vertex[1]);
+//  // printf("%lf", st->vertex[2]);
+//  s21_remove_struct(st);
+//  free(st);
+//  return 0;
+//}
 int s21_parse(exit_st *st, char *filename) {
   int status = 0;
-  ssize_t read = 0;
   char *line = NULL;
   size_t size_line = 0;
   FILE *file = fopen(filename, "r");
   if (file != NULL) {
-    char *ptr = line;
+    char *ptr = NULL;
     int poligons_counter = 0;
     int vertex_counter = 0;
     int capacity_ver = 3;
     int capacity_pol = 3;
-    int k = 0;
-    s21_init_struct(st);
+   status =  s21_init_struct(st);
     if (!status) {
-      while ((read = getline(&line, &size_line, file)) != -1 && !status) {
+      while (getline(&line, &size_line, file) != -1 && !status) {
         ptr = line;
         if (*ptr == 'v') {
           status = parse_vertex(&vertex_counter, ptr, st, &capacity_ver);
@@ -70,12 +82,6 @@ int parse_vertex(int *vertex_counter, char *ptr, exit_st *st,
         ptr++;
       } else {
         if (*vertex_counter < *capacity_ver) {
-        //   if (strtod(ptr, &ptr) == 0.0){
-        //       if(*ptr == '0'|| (*ptr == '-' && *(ptr + 1) == '0') ) {
-        //     st->vertex[*vertex_counter] = 0.0;
-        //     *vertex_counter += 1;
-        //       }
-        //   } else {
             st->vertex[*vertex_counter] = strtod(ptr, &ptr);
             if (*vertex_counter == 0) {
               st->minmaxX[0] = st->vertex[*vertex_counter];
@@ -92,24 +98,36 @@ int parse_vertex(int *vertex_counter, char *ptr, exit_st *st,
             s21_minmax_cord(st, counter_axis, st->vertex[*vertex_counter]);
             counter_axis++;
             *vertex_counter += 1;
-          // }
           while ( *ptr != '\0' && *ptr == ' ' ) {
             ptr++;
          }
         } else {
           double *tmp;
+
           *capacity_ver *= 2;
+
           if ((tmp = realloc(st->vertex, *capacity_ver * sizeof(double))) ==
+
               NULL) {
+
             return 1;
+
           } else {
+
             st->vertex = tmp;
+
           }
+
         }
+
       }
+
     }
+
   }
+
   return status;
+
 }
 
 int parse_poligons(char *ptr, exit_st *st, int *poligons_counter,
