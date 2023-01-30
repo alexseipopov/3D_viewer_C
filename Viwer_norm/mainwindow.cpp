@@ -31,7 +31,7 @@ void MainWindow::on_OpenobjFile_clicked() {
 
 void MainWindow::on_EditFile_clicked()
 {
-     QString str = QFileDialog::getOpenFileName(this,"Open file","/Users/fixierad/Projects/3D_viewer_C/Obj/", "*.obj");
+     QString str = QFileDialog::getOpenFileName(this,"Open file","/Users/cherylls/Desktop/3D_viever/", "*.obj");
      ui->filepath->setText(str);
      std::string v_str = str.toStdString();
        const char* strch = v_str.c_str();
@@ -43,6 +43,10 @@ void MainWindow::on_EditFile_clicked()
      double scale = normalize(st);
      set_scale(st, scale);
      ui->widget->res= st;
+      QString buf_line = QString::number(st->amount_struct_pol/2);
+     ui->label_line ->setText(buf_line);
+     buf_line = QString::number(st->amount_struct_ver/3);
+     ui->label_vertex->setText(buf_line);
 }
 
 
@@ -141,23 +145,39 @@ void MainWindow::on_z_rotate_returnPressed()
 
 void MainWindow::on_x_move_returnPressed()
 { ui->widget->scale = 1;
+    double a = ui->y_move->text().toDouble() ;
+
      //double radian = ui->z_rotate->text().toDouble() * (M_PI / 180.0);
-     s21_move(ui->widget->res,ui->x_move->text().toDouble(),'x');
+     s21_move(ui->widget->res,a*0.1,'x');
       ui->widget->update();
 }
 
 
 void MainWindow::on_y_move_returnPressed()
 { ui->widget->scale = 1;
+    double a = ui->y_move->text().toDouble() ;
+//    if (a > 1. ){
+//        a = 1.;
+//    }
+//    if (a < -1.){
+//        a = -1.;
+//    }
     //double radian = ui->z_rotate->text().toDouble() * (M_PI / 180.0);
-    s21_move(ui->widget->res,ui->y_move->text().toDouble(),'y');
+    s21_move(ui->widget->res,a*0.1,'y');
      ui->widget->update();
 }
 
 
 void MainWindow::on_z_move_returnPressed()
 { ui->widget->scale = 1;
-    s21_move(ui->widget->res,ui->z_move->text().toDouble(),'z');
+    double a = ui->y_move->text().toDouble() ;
+    if (a > 1 ){
+        a = 1;
+    }
+    if (a < -1){
+        a = -1;
+    }
+    s21_move(ui->widget->res,a*0.1,'z');
      ui->widget->update();
 }
 

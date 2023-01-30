@@ -19,7 +19,7 @@ class Myopengl : public QOpenGLWidget, public QOpenGLFunctions {
 
   Myopengl(QWidget *parent = nullptr);
   double scale =1;
-  QColor background_color = QColorConstants::White;
+  QColor background_color = QColorConstants::Black;
     QColor points_color;
     QColor line_color;
 
