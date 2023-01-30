@@ -32,6 +32,7 @@ void MainWindow::on_OpenobjFile_clicked() {
 void MainWindow::on_EditFile_clicked()
 {
      QString str = QFileDialog::getOpenFileName(this,"Open file","/Users/fixierad/Projects/3D_viewer_C/Obj/", "*.obj");
+     ui->filepath->setText(str);
      std::string v_str = str.toStdString();
        const char* strch = v_str.c_str();
        auto s = const_cast<char*>(strch);
@@ -76,6 +77,7 @@ void MainWindow::on_scale_but_minus_clicked()
 {
     ui->widget->scale = 1.1;
     ui->widget->update();
+   //  ui->widget->scale = 1;
 }
 
 
@@ -83,6 +85,7 @@ void MainWindow::on_scale_scale_plus_clicked()
 {
     ui->widget->scale = 0.9;
     ui->widget->update();
+    // ui->widget->scale = 1;
 }
 
 
@@ -107,11 +110,13 @@ void MainWindow::on_scale_line_edit_returnPressed()
 {
     ui->widget->scale = ui->scale_line_edit->text().toDouble();
     ui->widget->update();
+    ui->widget->scale = 1;
 }
 
 
 void MainWindow::on_x_rotate_returnPressed()
 {
+     ui->widget->scale = 1;
     double radian = ui->x_rotate->text().toDouble() * (M_PI / 180.0);
     rotation_x(radian,ui->widget->res);
     ui->widget->update();
@@ -119,7 +124,7 @@ void MainWindow::on_x_rotate_returnPressed()
 
 
 void MainWindow::on_y_rotate_returnPressed()
-{
+{ ui->widget->scale = 1;
     double radian = ui->y_rotate->text().toDouble() * (M_PI / 180.0);
     rotation_y(radian,ui->widget->res);
     ui->widget->update();
@@ -127,7 +132,7 @@ void MainWindow::on_y_rotate_returnPressed()
 
 
 void MainWindow::on_z_rotate_returnPressed()
-{
+{ ui->widget->scale = 1;
     double radian = ui->z_rotate->text().toDouble() * (M_PI / 180.0);
     rotation_z(radian,ui->widget->res);
     ui->widget->update();
@@ -135,7 +140,7 @@ void MainWindow::on_z_rotate_returnPressed()
 
 
 void MainWindow::on_x_move_returnPressed()
-{
+{ ui->widget->scale = 1;
      //double radian = ui->z_rotate->text().toDouble() * (M_PI / 180.0);
      s21_move(ui->widget->res,ui->x_move->text().toDouble(),'x');
       ui->widget->update();
@@ -143,7 +148,7 @@ void MainWindow::on_x_move_returnPressed()
 
 
 void MainWindow::on_y_move_returnPressed()
-{
+{ ui->widget->scale = 1;
     //double radian = ui->z_rotate->text().toDouble() * (M_PI / 180.0);
     s21_move(ui->widget->res,ui->y_move->text().toDouble(),'y');
      ui->widget->update();
@@ -151,8 +156,15 @@ void MainWindow::on_y_move_returnPressed()
 
 
 void MainWindow::on_z_move_returnPressed()
-{
+{ ui->widget->scale = 1;
     s21_move(ui->widget->res,ui->z_move->text().toDouble(),'z');
      ui->widget->update();
+}
+
+
+void MainWindow::on_backgroundcolor_clicked()
+{
+    ui->widget->background_color =
+         QColorDialog::getColor(Qt::white, this, tr("Select Color"));
 }
 

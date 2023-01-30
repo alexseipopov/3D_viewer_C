@@ -7,6 +7,7 @@
 #include <mainwindow.h>
 #include <QThread>
 #include <QMoveEvent>
+
 #include <GLU.h>
 #include <QGraphicsSceneMouseEvent>
 #include <stdlib.h>
@@ -18,6 +19,9 @@ class Myopengl : public QOpenGLWidget, public QOpenGLFunctions {
 
   Myopengl(QWidget *parent = nullptr);
   double scale =1;
+  QColor background_color = QColorConstants::White;
+    QColor points_color;
+    QColor line_color;
 
   ~Myopengl() {
     if (res) {

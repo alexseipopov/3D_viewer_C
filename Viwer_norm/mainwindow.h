@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include "s21_3DViewer.h"
-#include <myopengl.h>
+#include <QColorDialog>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -49,6 +49,8 @@ class MainWindow : public QMainWindow {
   void on_y_move_returnPressed();
 
   void on_z_move_returnPressed();
+
+  void on_backgroundcolor_clicked();
 
 private:
   Ui::MainWindow *ui;
