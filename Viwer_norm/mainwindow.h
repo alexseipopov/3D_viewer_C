@@ -52,6 +52,8 @@ class MainWindow : public QMainWindow {
 
   void on_backgroundcolor_clicked();
 
+  void on_horizontalSlider_2_sliderReleased();
+
 private:
   Ui::MainWindow *ui;
 };

@@ -186,5 +186,14 @@ void MainWindow::on_backgroundcolor_clicked()
 {
     ui->widget->background_color =
          QColorDialog::getColor(Qt::white, this, tr("Select Color"));
+    ui->widget->update();
+}
+
+
+void MainWindow::on_horizontalSlider_2_sliderReleased()
+{
+    ui->widget->scale = 1;
+    ui->widget->thickness = 1 + ui->horizontalSlider_2->value()*0.15;
+    ui->widget->update();
 }
 

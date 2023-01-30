@@ -16,15 +16,16 @@ void Myopengl::initializeGL() {
 }
 void Myopengl::resizeGL(int w, int h) {}
 void Myopengl::paintGL() {
+        glClearColor(background_color.redF(), background_color.greenF(),background_color.blueF(), 1);
     glClear(GL_COLOR_BUFFER_BIT |
              GL_DEPTH_BUFFER_BIT);
   glEnableClientState(GL_VERTEX_ARRAY);
-
+    glLineWidth(thickness );
     set_scale(res, scale);
   glVertexPointer(3, GL_DOUBLE, 0, res->vertex);
   glDrawElements(GL_LINES, res->amount_struct_pol, GL_UNSIGNED_INT,
                  res->poligons);
-    glClearColor(background_color.redF(), background_color.greenF(),background_color.blueF(), 1);
+
   glDisableClientState(GL_VERTEX_ARRAY);
 
 }

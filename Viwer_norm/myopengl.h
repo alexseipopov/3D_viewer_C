@@ -16,7 +16,7 @@
 
 class Myopengl : public QOpenGLWidget, public QOpenGLFunctions {
  public:
-
+   double thickness  = 1 ;
   Myopengl(QWidget *parent = nullptr);
   double scale =1;
   QColor background_color = QColorConstants::Black;
