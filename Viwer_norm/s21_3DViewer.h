@@ -11,7 +11,6 @@
 extern "C" {
 #endif
 
-
 typedef struct exit_struct {
   double minmaxX[2];
   double minmaxY[2];
@@ -58,15 +57,16 @@ void s21_remove_struct(exit_st *st);
 /// @param coord current coordinate
 void s21_minmax_cord(exit_st *st, int counter_axis, double coord);
 
-
-/// @brief function find coefficient for normalize value  coordinate points to -1 / 1
+/// @brief function find coefficient for normalize value  coordinate points to
+/// -1 / 1
 /// @param st struct
 /// @return coefficient
 double normalize(exit_st *st);
 /// @brief function for setting model on center of widget
 /// @param st struct
 void setting_to_center(exit_st *st);
-/// @brief function for multiplication coordinates point on necessary coefiiciant of scale
+/// @brief function for multiplication coordinates point on necessary
+/// coefiiciant of scale
 /// @param st struct
 /// @param scale scale
 void set_scale(exit_st *st, double scale);

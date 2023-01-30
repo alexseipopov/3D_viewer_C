@@ -1,10 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QFileDialog>
-#include "s21_3DViewer.h"
 #include <QColorDialog>
+#include <QFileDialog>
+#include <QMainWindow>
+
+#include "s21_3DViewer.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -18,6 +19,8 @@ class MainWindow : public QMainWindow {
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
 
+ public slots:
+  void get_position(int x, int y);
 
  private slots:
   void on_OpenobjFile_clicked();
@@ -26,15 +29,9 @@ class MainWindow : public QMainWindow {
 
   void on_Draw_clicked();
 
- // void on_scale_slider_sliderMoved(int position);
-
-  void on_scale_slider_sliderReleased();
-
   void on_scale_but_minus_clicked();
 
   void on_scale_scale_plus_clicked();
-
-  void on_scale_slider_valueChanged(int value);
 
   void on_scale_line_edit_returnPressed();
 
@@ -56,7 +53,18 @@ class MainWindow : public QMainWindow {
 
   void on_comboBox_3_activated(int index);
 
-private:
+  void on_x_move_slider_sliderMoved(int position);
+
+  void on_x_rotate_slider_sliderMoved(int position);
+
+  void on_scale_slider_sliderMoved(int position);
+
+ private:
   Ui::MainWindow *ui;
+  int previous_value_slider_x;
+
+  int previous_value_rotate_x;
+
+  double previous_scale;
 };
 #endif  // MAINWINDOW_H

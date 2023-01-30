@@ -1,6 +1,6 @@
 #include "s21_3DViewer.h"
 
-//int main() {
+// int main() {
 
 //  exit_st *st = (exit_st *)calloc(1, sizeof(exit_st));
 // s21_parse(st, "test.obj");
@@ -37,7 +37,7 @@ int s21_parse(exit_st *st, char *filename) {
     int vertex_counter = 0;
     int capacity_ver = 3;
     int capacity_pol = 3;
-   status =  s21_init_struct(st);
+    status = s21_init_struct(st);
     if (!status) {
       while (getline(&line, &size_line, file) != -1 && !status) {
         ptr = line;
@@ -82,25 +82,25 @@ int parse_vertex(int *vertex_counter, char *ptr, exit_st *st,
         ptr++;
       } else {
         if (*vertex_counter < *capacity_ver) {
-            st->vertex[*vertex_counter] = strtod(ptr, &ptr);
-            if (*vertex_counter == 0) {
-              st->minmaxX[0] = st->vertex[*vertex_counter];
-              st->minmaxX[1] = st->vertex[*vertex_counter];
-            }
-            if (*vertex_counter == 1) {
-              st->minmaxY[0] = st->vertex[*vertex_counter];
-              st->minmaxY[1] = st->vertex[*vertex_counter];
-            }
-            if (*vertex_counter == 2) {
-              st->minmaxZ[0] = st->vertex[*vertex_counter];
-              st->minmaxZ[1] = st->vertex[*vertex_counter];
-            }
-            s21_minmax_cord(st, counter_axis, st->vertex[*vertex_counter]);
-            counter_axis++;
-            *vertex_counter += 1;
-          while ( *ptr != '\0' && *ptr == ' ' ) {
+          st->vertex[*vertex_counter] = strtod(ptr, &ptr);
+          if (*vertex_counter == 0) {
+            st->minmaxX[0] = st->vertex[*vertex_counter];
+            st->minmaxX[1] = st->vertex[*vertex_counter];
+          }
+          if (*vertex_counter == 1) {
+            st->minmaxY[0] = st->vertex[*vertex_counter];
+            st->minmaxY[1] = st->vertex[*vertex_counter];
+          }
+          if (*vertex_counter == 2) {
+            st->minmaxZ[0] = st->vertex[*vertex_counter];
+            st->minmaxZ[1] = st->vertex[*vertex_counter];
+          }
+          s21_minmax_cord(st, counter_axis, st->vertex[*vertex_counter]);
+          counter_axis++;
+          *vertex_counter += 1;
+          while (*ptr != '\0' && *ptr == ' ') {
             ptr++;
-         }
+          }
         } else {
           double *tmp;
 
@@ -109,25 +109,17 @@ int parse_vertex(int *vertex_counter, char *ptr, exit_st *st,
           if ((tmp = realloc(st->vertex, *capacity_ver * sizeof(double))) ==
 
               NULL) {
-
             return 1;
 
           } else {
-
             st->vertex = tmp;
-
           }
-
         }
-
       }
-
     }
-
   }
 
   return status;
-
 }
 
 int parse_poligons(char *ptr, exit_st *st, int *poligons_counter,

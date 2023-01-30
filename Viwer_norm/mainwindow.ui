@@ -202,7 +202,7 @@
              <item>
               <widget class="QTabWidget" name="tabWidget">
                <property name="currentIndex">
-                <number>0</number>
+                <number>1</number>
                </property>
                <widget class="QWidget" name="tab">
                 <attribute name="title">
@@ -581,6 +581,20 @@
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="scale_scale_plus">
+            <property name="text">
+             <string>SCALE PLUS</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="scale_but_minus">
+            <property name="text">
+             <string>SCALE MINUS</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QGroupBox" name="groupBox_12">
             <property name="title">
              <string/>
@@ -605,22 +619,14 @@
              </item>
              <item>
               <widget class="QSlider" name="scale_slider">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="scale_but_minus">
-               <property name="text">
-                <string>SCALE MINUS</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="scale_scale_plus">
-               <property name="text">
-                <string>SCALE PLUS</string>
                </property>
               </widget>
              </item>
