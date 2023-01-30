@@ -821,6 +821,16 @@
                            <height>0</height>
                           </size>
                          </property>
+                         <item>
+                          <property name="text">
+                           <string>Solid</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>Striple</string>
+                          </property>
+                         </item>
                         </widget>
                        </item>
                       </layout>

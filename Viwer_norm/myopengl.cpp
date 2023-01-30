@@ -16,12 +16,15 @@ void Myopengl::initializeGL() {
 }
 void Myopengl::resizeGL(int w, int h) {}
 void Myopengl::paintGL() {
-        glClearColor(background_color.redF(), background_color.greenF(),background_color.blueF(), 1);
     glClear(GL_COLOR_BUFFER_BIT |
              GL_DEPTH_BUFFER_BIT);
   glEnableClientState(GL_VERTEX_ARRAY);
     glLineWidth(thickness );
     set_scale(res, scale);
+    if (striple == 1 ){
+    glEnable(GL_LINE_STIPPLE);  // включаем рисование пунктиром
+          glLineStipple(1, 0x0101);  // задаем маску для пунктира
+}
   glVertexPointer(3, GL_DOUBLE, 0, res->vertex);
   glDrawElements(GL_LINES, res->amount_struct_pol, GL_UNSIGNED_INT,
                  res->poligons);
@@ -30,6 +33,7 @@ void Myopengl::paintGL() {
 
 }
 void Myopengl::mouseMoveEvent(QMouseEvent *mo){
+    scale = 1 ;
 //    rotation_x( M_PI /45 * (mo->pos().y() - mPos.y()), res);
 //      rotation_y(  M_PI/45 * (mo->pos().x() - mPos.x()), res);
     rotation_x(0.01 / M_PI * (mo->pos().y() - mPos.y()), res);
@@ -39,5 +43,6 @@ void Myopengl::mouseMoveEvent(QMouseEvent *mo){
 }
 
 void Myopengl::mousePressEvent(QMouseEvent *mo) {
+       scale = 1 ;
     mPos=mo->pos();
 }

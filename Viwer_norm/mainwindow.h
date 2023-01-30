@@ -54,6 +54,8 @@ class MainWindow : public QMainWindow {
 
   void on_horizontalSlider_2_sliderReleased();
 
+  void on_comboBox_3_activated(int index);
+
 private:
   Ui::MainWindow *ui;
 };

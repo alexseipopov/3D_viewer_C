@@ -22,7 +22,7 @@ class Myopengl : public QOpenGLWidget, public QOpenGLFunctions {
   QColor background_color = QColorConstants::Black;
     QColor points_color;
     QColor line_color;
-
+  int striple = 0;
   ~Myopengl() {
     if (res) {
        s21_remove_struct(res);

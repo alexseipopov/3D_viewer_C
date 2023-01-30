@@ -43,7 +43,7 @@ void MainWindow::on_EditFile_clicked()
      double scale = normalize(st);
      set_scale(st, scale);
      ui->widget->res= st;
-      QString buf_line = QString::number(st->amount_struct_pol/2);
+      QString buf_line = QString::number(st->amount_struct_pol/2/2);
      ui->label_line ->setText(buf_line);
      buf_line = QString::number(st->amount_struct_ver/3);
      ui->label_vertex->setText(buf_line);
@@ -114,7 +114,7 @@ void MainWindow::on_scale_line_edit_returnPressed()
 {
     ui->widget->scale = ui->scale_line_edit->text().toDouble();
     ui->widget->update();
-    ui->widget->scale = 1;
+
 }
 
 
@@ -187,6 +187,7 @@ void MainWindow::on_backgroundcolor_clicked()
     ui->widget->background_color =
          QColorDialog::getColor(Qt::white, this, tr("Select Color"));
     ui->widget->update();
+
 }
 
 
@@ -194,6 +195,17 @@ void MainWindow::on_horizontalSlider_2_sliderReleased()
 {
     ui->widget->scale = 1;
     ui->widget->thickness = 1 + ui->horizontalSlider_2->value()*0.15;
+    ui->widget->update();
+}
+
+
+void MainWindow::on_comboBox_3_activated(int index)
+{ ui->widget->scale = 1;
+    if (index == 0){
+        ui->widget->striple = 0;
+    } else {
+        ui->widget->striple = 1;
+    }
     ui->widget->update();
 }
 
